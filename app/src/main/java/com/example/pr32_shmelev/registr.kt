@@ -27,6 +27,15 @@ class registr : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
+        // Проверка и автоматическая вставка сохраненных данных
+        val savedLogin = sharedPreferences.getString("login", null)
+        val savedPassword = sharedPreferences.getString("password", null)
+
+        if (savedLogin != null && savedPassword != null) {
+            login.setText(savedLogin)
+            password.setText(savedPassword)
+        }
+
         button.setOnClickListener {
             val enlog = login.text.toString()
             val enpas = password.text.toString()
@@ -39,28 +48,16 @@ class registr : AppCompatActivity() {
                     .create()
                     .show()
             } else {
-                val savedLogin = sharedPreferences.getString("login", null)
-                val savedPassword = sharedPreferences.getString("password", null)
+                if (enlog == "ects" && enpas == "ects2023") {
+                    val editor = sharedPreferences.edit()
+                    editor.putString("login", enlog)
+                    editor.putString("password", enpas)
+                    editor.apply()
 
-                if (savedLogin != null && savedPassword != null) {
-                    if (enlog == savedLogin && enpas == savedPassword) {
-                        val intent = Intent(this, Credit::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show()
-                    }
+                    val intent = Intent(this, Credit::class.java)
+                    startActivity(intent)
                 } else {
-                    if (enlog == "ects" && enpas == "ects2023") {
-                        val editor = sharedPreferences.edit()
-                        editor.putString("login", enlog)
-                        editor.putString("password", enpas)
-                        editor.apply()
-
-                        val intent = Intent(this, Credit::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show()
                 }
             }
         }

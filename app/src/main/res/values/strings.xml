@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PR32_SHMELEV</string>
+    <string name="app_name">PR32 SHMELEV</string>
     <string name="had_reg">Регистрация</string>
     <string name="sign_text">ВОЙТИ</string>
     <string name="input_loginpass">Введите ваш логин и пароль</string>
@@ -7,4 +7,5 @@
     <string name="login">Логин</string>
     <string name="calculate_credit">Кредитный калькулятор</string>
     <string name="rasschitat">РАССЧИТАТЬ</string>
+
 </resources>
