@@ -1,9 +1,11 @@
 package com.example.pr32_shmelev
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ class Credit : AppCompatActivity() {
     private lateinit var seektext: SeekBar
     private lateinit var srok: EditText
     private lateinit var sum: TextView
+    private lateinit var strela:ImageView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +30,12 @@ class Credit : AppCompatActivity() {
         button = findViewById(R.id.buton2)
         srok = findViewById(R.id.srokcredit)
         sum = findViewById(R.id.sum)
+        strela = findViewById(R.id.strela)
+
+        strela.setOnClickListener {
+            intent = Intent(this, registr::class.java)
+            startActivity(intent)
+        }
 
         button.setOnClickListener {
             val srokText = srok.text.toString()
@@ -54,6 +63,16 @@ class Credit : AppCompatActivity() {
                     }
 
                     sum.text = result.toString()
+
+                    android.os.Handler().postDelayed({
+                        intent = Intent(this, rashet::class.java)
+                        intent.putExtra("ключ_1", creditSum.toString())
+                        intent.putExtra("ключ_2", srokValue.toString())
+                        intent.putExtra("ключ_3", result.toString())
+                        startActivity(intent)
+                    },3000)
+
+
                 } catch (e: NumberFormatException) {
                     Toast.makeText(this, "Неверный формат срока", Toast.LENGTH_SHORT).show()
                 }
